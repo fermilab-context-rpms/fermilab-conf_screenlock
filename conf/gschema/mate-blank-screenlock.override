@@ -1,0 +1,5 @@
+[org.mate.screensaver]
+lock-enabled=true
+lock-delay=0
+idle-activation-enabled=true
+mode=blank-only

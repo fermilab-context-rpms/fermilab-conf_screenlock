@@ -1,0 +1,6 @@
+[ScreenSaver][$i]
+Enabled=true
+Lock=true
+LockGrace=60000
+Timeout=600
+Saver=kblank.desktop 

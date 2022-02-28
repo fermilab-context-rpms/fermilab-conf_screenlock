@@ -1,0 +1,11 @@
+### THIS FILE IS MANAGED BY fermilab-conf_screenlock-gnome ###
+###   YOUR CHANGES HERE WILL BE REVERTED BY THIS PACAKGE   ###
+[org/gnome/desktop/session]
+idle-delay=uint32 900
+
+[org/gnome/desktop/screensaver]
+lock-delay=uint32 0
+
+idle-activation-enabled=true
+lock-enabled=true
+user-switch-enabled=true
