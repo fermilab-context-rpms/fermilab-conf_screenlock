@@ -1,6 +1,6 @@
 Name:		fermilab-conf_screenlock
 Version:	1.0
-Release:	3%{?dist}
+Release:	3.1%{?dist}
 Summary:	Sets a default screenlock for the GUI sessions
 
 Group:		Fermilab
@@ -13,7 +13,8 @@ Requires:	system-release
 BuildArch:	noarch
 
 # Top level package should require software specific packages
-Requires:	%{name}-gnome == %{version}-%{release}
+Requires:	(%{name}-gnome == %{version}-%{release} if gnome-session)
+Requires:	(%{name}-gnome == %{version}-%{release} if gnome-shell)
 
 %description
 Set screensaver to lock automatically
@@ -70,6 +71,9 @@ dconf update
 
 #####################################################################
 %changelog
+* Wed Apr 13 2022 Pat Riehecky <riehecky@fnal.goc> 1.0-3.1
+- use rich boolean deps
+
 * Mon Feb 28 2022 Pat Riehecky <riehecky@fnal.gov> 1.0-3
 - Split to subpackages
 - GNOME is the only shipped desktop for now
