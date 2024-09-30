@@ -1,6 +1,6 @@
 Name:		fermilab-conf_screenlock
-Version:	1.0
-Release:	3.1%{?dist}
+Version:	1.1
+Release:	1%{?dist}
 Summary:	Sets a default screenlock for the GUI sessions
 
 Group:		Fermilab
@@ -15,6 +15,8 @@ BuildArch:	noarch
 # Top level package should require software specific packages
 Requires:	(%{name}-gnome == %{version}-%{release} if gnome-session)
 Requires:	(%{name}-gnome == %{version}-%{release} if gnome-shell)
+Requires:	(%{name}-weston == %{version}-%{release} if weston)
+Requires:	(%{name}-weston == %{version}-%{release} if weston-session)
 
 %description
 Set screensaver to lock automatically
@@ -22,7 +24,7 @@ Set screensaver to lock automatically
 Per: CS-Doc-1065
 
 %package gnome
-Summary:	Sets a default screenlock for GDM
+Summary:	Sets a default screenlock for GNOME
 Conflicts:	gnome-session < 3.8
 
 Requires(post):	dconf
@@ -30,6 +32,13 @@ Requires(postun):	dconf
 
 %description gnome
 Set screensaver to lock automatically for GNOME desktop
+
+%package weston
+Summary:        Sets a default screenlock for Weston
+Conflicts:      weston-session < 8
+
+%description weston
+Set screensaver to lock automatically for Weston desktop
 
 
 %prep
@@ -44,6 +53,9 @@ Set screensaver to lock automatically for GNOME desktop
 # for GNOME
 %{__install} -Dpm 644 dconf/20-screenlock %{buildroot}/%{_sysconfdir}/dconf/db/distro.d/20-screenlock
 %{__install} -Dpm 644 dconf/locks/20-screenlock %{buildroot}/%{_sysconfdir}/dconf/db/distro.d/locks/20-screenlock
+
+# for Weston
+%{__install} -Dpm 644 weston/weston.ini %{buildroot}/%{_sysconfdir}/xdg/weston/weston.ini
 
 # for KDE?
 # %{__install} -D kscreensaverrc    %{buildroot}/%{_datadir}/config/kscreensaverrc
@@ -68,9 +80,15 @@ dconf update
 %config %{_sysconfdir}/dconf/db/distro.d/20-screenlock
 %config %{_sysconfdir}/dconf/db/distro.d/locks/20-screenlock
 
+%files weston
+%defattr(0644,root,root,0755)
+%config %{_sysconfdir}/xdg/weston/weston.ini
 
 #####################################################################
 %changelog
+* Mon Sep 30 2024 Pat Riehecky <riehecky@fnal.goc> 1.1-1
+- Add weston config
+
 * Wed Apr 13 2022 Pat Riehecky <riehecky@fnal.goc> 1.0-3.1
 - use rich boolean deps
 
