@@ -1,5 +1,5 @@
 Name:		fermilab-conf_screenlock
-Version:	1.1
+Version:	1.2
 Release:	1%{?dist}
 Summary:	Sets a default screenlock for the GUI sessions
 
@@ -52,7 +52,6 @@ Set screensaver to lock automatically for Weston desktop
 
 # for GNOME
 %{__install} -Dpm 644 dconf/20-screenlock %{buildroot}/%{_sysconfdir}/dconf/db/distro.d/20-screenlock
-%{__install} -Dpm 644 dconf/locks/20-screenlock %{buildroot}/%{_sysconfdir}/dconf/db/distro.d/locks/20-screenlock
 
 # for Weston
 %{__install} -Dpm 644 weston/weston.ini %{buildroot}/%{_sysconfdir}/xdg/weston/weston.ini
@@ -78,7 +77,6 @@ dconf update
 %files gnome
 %defattr(0644,root,root,0755)
 %config %{_sysconfdir}/dconf/db/distro.d/20-screenlock
-%config %{_sysconfdir}/dconf/db/distro.d/locks/20-screenlock
 
 %files weston
 %defattr(0644,root,root,0755)
@@ -86,6 +84,9 @@ dconf update
 
 #####################################################################
 %changelog
+* Tue Oct 8 2024 Pat Riehecky <riehecky@fnal.goc> 1.2-1
+- Permit user change of gnome screenlock
+
 * Mon Sep 30 2024 Pat Riehecky <riehecky@fnal.goc> 1.1-1
 - Add weston config
 
